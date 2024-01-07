@@ -3,13 +3,14 @@
  */
 
 /* global describe, it, expect, jest */
-import confirm from '../src/index';
-import { screen } from '@testing-library/dom';
-import { fireEvent } from '@testing-library/react';
+import confirm from '../src/Confirm';
+import { act, fireEvent, screen } from '@testing-library/react';
 
 describe('confirm function', () => {
   it('renders the modal on calling', () => {
-    confirm();
+    act(() => {
+      confirm();
+    });
 
     const found = screen.findByText('Are you sure?');
 

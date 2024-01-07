@@ -6,3 +6,5 @@ webpack.config.js
 .git
 .storybook
 stories
+test
+.github

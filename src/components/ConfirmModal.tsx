@@ -2,6 +2,24 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 
+type buttonsComponentProps = {
+  onClose: (result: boolean) => void;
+};
+export type ConfirmModalProps = {
+  onClose: (result: boolean) => void;
+  message?: React.ReactNode;
+  title?: React.ReactNode;
+  confirmText?: React.ReactNode;
+  cancelText?: React.ReactNode;
+  confirmColor?: string;
+  cancelColor?: string;
+  className?: string;
+  size?: string;
+  buttonsComponent?: (props: buttonsComponentProps) => React.ReactNode;
+  bodyComponent?: (props: any) => React.ReactNode;
+  modalProps?: React.ComponentProps<typeof Modal>;
+  children?: React.ReactNode;
+};
 const ConfirmModal = ({
   onClose,
   message,
@@ -15,9 +33,9 @@ const ConfirmModal = ({
   size,
   bodyComponent,
   modalProps,
-}) => {
+}: ConfirmModalProps) => {
   let buttonsContent = (
-    <Fragment>
+    <>
       {cancelText && (
         <Button color={cancelColor} onClick={() => onClose(false)}>
           {cancelText}
@@ -26,7 +44,7 @@ const ConfirmModal = ({
       <Button color={confirmColor} onClick={() => onClose(true)}>
         {confirmText}
       </Button>
-    </Fragment>
+    </>
   );
 
   if (buttonsComponent) {
@@ -34,7 +52,7 @@ const ConfirmModal = ({
     buttonsContent = <CustomComponent onClose={onClose} />;
   }
 
-  let BodyComponent = bodyComponent;
+  let BodyComponent = bodyComponent as any;
 
   return (
     <Modal
